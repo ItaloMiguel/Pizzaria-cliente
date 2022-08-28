@@ -6,7 +6,7 @@ public class Main {
 
 		Pausinha pausinha = new PausinhaInterativa();
 		NovoClienteDecider novoClienteDecider = new NovoClienteDeciderAleatorio();
-		PizzariaListener listener = new PizzariaNotListener();
+		PizzariaListener listener = new PizzariaListenerConsolePrinter();
 		
 		SimuladorPizzaria simulador = new SimuladorPizzaria(pausinha, novoClienteDecider, listener);
 		

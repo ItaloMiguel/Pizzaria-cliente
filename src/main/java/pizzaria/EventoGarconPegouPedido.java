@@ -3,12 +3,12 @@ package pizzaria;
 public class EventoGarconPegouPedido extends EventoPizzaria {
 
 	private Cliente cliente;
-	private Garcom garcon;
+	private Garcom garcom;
 	private Pedido pedido;
 
 	public EventoGarconPegouPedido(Garcom garcon, Pedido pedido, Cliente cliente) {
 		super(TipoEvento.GARCON_PEGOU_PEDIDO);
-		this.garcon = garcon;
+		this.garcom = garcon;
 		this.pedido = pedido;
 		this.cliente = cliente;
 	}
@@ -17,8 +17,8 @@ public class EventoGarconPegouPedido extends EventoPizzaria {
 		return cliente;
 	}
 
-	public Garcom getGarcon() {
-		return garcon;
+	public Garcom getGarcom() {
+		return garcom;
 	}
 
 	public Pedido getPedido() {

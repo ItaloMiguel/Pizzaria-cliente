@@ -21,7 +21,7 @@ public class Pizzaria {
 
 	public void novoClienteChegou(Cliente novoCliente) {
 		this.clientesNaoAtendidos.add(novoCliente);
-		System.out.println("Cliente " + novoCliente.getNome() + " chegou na pizzaria.");
+		
 		EventoChegouCliente evento = new EventoChegouCliente(novoCliente);
 		listener.ocorreuEvento(evento);
 	}
@@ -62,6 +62,7 @@ public class Pizzaria {
 			if (temGarconDisponivel()) {
 				clienteFazPedido(cliente);
 			} else {
+				// TODO como tirar este sysout daqui?
 				System.out.println("Cliente " + cliente.getNome() + " está esperando um garçon.");
 			}
 		}
@@ -70,13 +71,10 @@ public class Pizzaria {
 	private void clienteFazPedido(Cliente cliente) {
 		
 		Garcom garcom = pegarGarconDisponivel();
-		System.out.println("Garçon " + garcom.getNome() + " vai atender cliente " + cliente.getNome() + ".");
 		Pedido novoPedido = cliente.novoPedido();
 		garcom.setPedido(novoPedido);
 		clientesNaoAtendidos.remove(cliente);
 		clientesAtendidos.add(cliente);
-		System.out.println("Garçon " + garcom.getNome() + " pegou o pedido " + novoPedido.getSabores()
-				+ " do cliente " + cliente.getNome() + ".");
 		
 		EventoGarconPegouPedido evento = new EventoGarconPegouPedido(garcom, novoPedido, cliente);
 		this.listener.ocorreuEvento(evento);

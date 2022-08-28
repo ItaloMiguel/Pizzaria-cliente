@@ -12,7 +12,7 @@ public class PedidoFactory {
 
 	public Pedido novoPedido() {
 
-		int quantidadePizzas = random.nextInt(QTD_MAX_PIZZAS);
+		int quantidadePizzas = random.nextInt(QTD_MAX_PIZZAS)+1;
 		List<String> sabores = new ArrayList<>();
 		for (int i=0; i<quantidadePizzas; i++) {
 			String sabor = escolheSaborAleatorio();
