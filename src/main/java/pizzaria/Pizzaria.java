@@ -61,10 +61,7 @@ public class Pizzaria {
 		for (Cliente cliente : this.clientesNaoAtendidos) {
 			if (temGarconDisponivel()) {
 				clienteFazPedido(cliente);
-			} else {
-				// TODO como tirar este sysout daqui?
-				System.out.println("Cliente " + cliente.getNome() + " está esperando um garçon.");
-			}
+			} 
 		}
 	}
 
