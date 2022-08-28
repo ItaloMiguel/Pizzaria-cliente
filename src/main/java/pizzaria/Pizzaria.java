@@ -8,18 +8,22 @@ import java.util.Queue;
 
 public class Pizzaria {
 
+	private PizzariaListener listener;
 	private Queue<Cliente> clientesNaoAtendidos = new LinkedList<>();
 	private Queue<Cliente> clientesAtendidos = new LinkedList<>();
 	private Queue<Garcom> garconsDisponiveis;
 	private Queue<Garcom> garconsOcupados = new LinkedList<>();
 
-	public Pizzaria(Queue<Garcom> garcons) {
+	public Pizzaria(Queue<Garcom> garcons, PizzariaListener listener) {
 		this.garconsDisponiveis = garcons;
+		this.listener = listener;
 	}
 
 	public void novoClienteChegou(Cliente novoCliente) {
 		this.clientesNaoAtendidos.add(novoCliente);
 		System.out.println("Cliente " + novoCliente.getNome() + " chegou na pizzaria.");
+		EventoChegouCliente evento = new EventoChegouCliente(novoCliente);
+		listener.ocorreuEvento(evento);
 	}
 
 	public Collection<Cliente> getClientes() {
@@ -64,6 +68,7 @@ public class Pizzaria {
 	}
 
 	private void clienteFazPedido(Cliente cliente) {
+		
 		Garcom garcom = pegarGarconDisponivel();
 		System.out.println("Garçon " + garcom.getNome() + " vai atender cliente " + cliente.getNome() + ".");
 		Pedido novoPedido = cliente.novoPedido();
@@ -72,6 +77,9 @@ public class Pizzaria {
 		clientesAtendidos.add(cliente);
 		System.out.println("Garçon " + garcom.getNome() + " pegou o pedido " + novoPedido.getSabores()
 				+ " do cliente " + cliente.getNome() + ".");
+		
+		EventoGarconPegouPedido evento = new EventoGarconPegouPedido(garcom, novoPedido, cliente);
+		this.listener.ocorreuEvento(evento);
 	}
 
 	private Garcom pegarGarconDisponivel() {

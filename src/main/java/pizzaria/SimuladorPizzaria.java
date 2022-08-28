@@ -7,13 +7,14 @@ public class SimuladorPizzaria {
 	private PizzariaRender render = new ConsolePizzariaRender();
 	private Pausinha pausinha;
 	private NovoClienteDecider novoClienteDecider;
-
-	private Pizzaria pizzaria = pizzariaFactory.criarPizzaria();
+	private Pizzaria pizzaria;
+	
 	private int tempo = 0;
 	
-	public SimuladorPizzaria(Pausinha pausinha, NovoClienteDecider novoClienteDecider) {
+	public SimuladorPizzaria(Pausinha pausinha, NovoClienteDecider novoClienteDecider, PizzariaListener listener) {
 		this.pausinha = pausinha;
 		this.novoClienteDecider = novoClienteDecider;
+		this.pizzaria = pizzariaFactory.criarPizzaria(listener);
 	}
 	
 	public void iniciarSimulacao() {
