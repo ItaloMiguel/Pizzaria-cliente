@@ -9,6 +9,7 @@ public class Pizzaria {
 
 	public void novoClienteChegou(Cliente novoCliente) {
 		this.clientes.add(novoCliente);
+		System.out.println("Cliente " + novoCliente.getNome() + " chegou na pizzaria.");
 	}
 
 	public List<Cliente> getClientes() {
