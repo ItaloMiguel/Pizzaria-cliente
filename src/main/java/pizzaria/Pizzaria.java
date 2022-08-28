@@ -22,11 +22,19 @@ public class Pizzaria {
 		System.out.println("Cliente " + novoCliente.getNome() + " chegou na pizzaria.");
 	}
 
-	public List<Cliente> getClientes() {
+	public Collection<Cliente> getClientes() {
 		List<Cliente> todos = new ArrayList<>();
 		todos.addAll(this.clientesNaoAtendidos);
 		todos.addAll(this.clientesAtendidos);
 		return todos;
+	}
+
+	public Collection<Cliente> getClientesNaoAtendidos() {
+		return clientesNaoAtendidos;
+	}
+
+	public Collection<Cliente> getClientesAtendidos() {
+		return clientesAtendidos;
 	}
 
 	public Collection<Garcom> getGarcons() {

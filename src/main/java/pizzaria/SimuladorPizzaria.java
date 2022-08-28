@@ -1,36 +1,45 @@
 package pizzaria;
 
-import java.util.Scanner;
-
 public class SimuladorPizzaria {
 
 	private PizzariaFactory pizzariaFactory = new PizzariaFactory();
-	private NovoClienteDecider novoClienteDecider = new NovoClienteDeciderAleatorio();
 	private ClienteFactory clienteFactory = new ClienteFactory();
 	private PizzariaRender render = new ConsolePizzariaRender();
+	private Pausinha pausinha;
+	private NovoClienteDecider novoClienteDecider;
 
 	private Pizzaria pizzaria = pizzariaFactory.criarPizzaria();
-	private int tempo;
-
+	private int tempo = 0;
+	
+	public SimuladorPizzaria(Pausinha pausinha, NovoClienteDecider novoClienteDecider) {
+		this.pausinha = pausinha;
+		this.novoClienteDecider = novoClienteDecider;
+	}
+	
 	public void iniciarSimulacao() {
 
-		System.out.println("INICIANDO O SIMULADOR DE PIZZARIA =D");
-
-		tempo = 0;
 		while (true) {
-
-			tempo++;
-			System.out.println("\nSimulação está no tempo " + tempo);
-
-			criarNovosClientes();
-
-			pizzaria.clientesFazemPedidos();
-
-			render.render(pizzaria);
-
-			pausinha();
+			avancarSimulacao();
 		}
 
+	}
+	
+	public void avancarSimulacao() {
+
+		if (tempo == 0) {
+			System.out.println("INICIANDO O SIMULADOR DE PIZZARIA =D");
+		}
+
+		tempo++;
+		System.out.println("\nSimulação está no tempo " + tempo);
+
+		criarNovosClientes();
+
+		pizzaria.clientesFazemPedidos();
+
+		render.render(pizzaria);
+
+		pausinha.pausar();
 	}
 
 	private void criarNovosClientes() {
@@ -41,10 +50,8 @@ public class SimuladorPizzaria {
 		}
 	}
 
-	private void pausinha() {
-
-		System.out.println("Prosseguir? 'y' para 'Yes': ");
-		Scanner scanner = new Scanner(System.in);
-		scanner.next();
+	public Pizzaria getPizzaria() {
+		return this.pizzaria;
 	}
+
 }
