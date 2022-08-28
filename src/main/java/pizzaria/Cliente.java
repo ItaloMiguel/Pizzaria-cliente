@@ -4,8 +4,12 @@ import java.util.Objects;
 
 public class Cliente {
 
-	private String nome;
+	private PedidoFactory pedidoFactory = new PedidoFactory();
 	
+	private String nome;
+	private Pedido pedido;
+	private boolean jaPediu = false;
+
 	public Cliente(String nome) {
 		this.nome = nome;
 	}
@@ -13,6 +17,21 @@ public class Cliente {
 	public String getNome() {
 		return nome;
 	}
+	
+	public boolean jaPediu() {
+		return jaPediu;
+	}
+
+	public boolean aindaNaoPediu() {
+		return !jaPediu;
+	}
+
+	public Pedido novoPedido() {
+		this.pedido = pedidoFactory.novoPedido();
+		this.jaPediu = true;
+		return this.pedido;
+	}
+
 	
 	@Override
 	public int hashCode() {
@@ -35,5 +54,6 @@ public class Cliente {
 	public String toString() {
 		return "Cliente [nome=" + nome + "]";
 	}
+
 	
 }

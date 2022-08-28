@@ -1,40 +1,50 @@
 package pizzaria;
 
+import java.util.Scanner;
+
 public class SimuladorPizzaria {
 
-	private Pizzaria pizzaria = new Pizzaria();
+	private PizzariaFactory pizzariaFactory = new PizzariaFactory();
 	private NovoClienteDecider novoClienteDecider = new NovoClienteDeciderAleatorio();
 	private ClienteFactory clienteFactory = new ClienteFactory();
 	private PizzariaRender render = new ConsolePizzariaRender();
-	
+
+	private Pizzaria pizzaria = pizzariaFactory.criarPizzaria();
+	private int tempo;
+
 	public void iniciarSimulacao() {
-		
-		System.out.println("### INICIANDO O SIMULADOR DE PIZZARIA =D ###");
-		
-		int tempo = 0;
-		while(true) {
-			
-			pausinha();
+
+		System.out.println("INICIANDO O SIMULADOR DE PIZZARIA =D");
+
+		tempo = 0;
+		while (true) {
+
 			tempo++;
-			System.out.println("\n## Simulação está no tempo " + tempo);
-			
-			boolean deveCriarNovoCliente = novoClienteDecider.deveGerarNovoCliente(tempo);
-			if (deveCriarNovoCliente) {
-				Cliente novoCliente = clienteFactory.novoCliente();
-				pizzaria.novoClienteChegou(novoCliente);
-			}
-			
+			System.out.println("\nSimulação está no tempo " + tempo);
+
+			criarNovosClientes();
+
+			pizzaria.clientesFazemPedidos();
+
 			render.render(pizzaria);
+
+			pausinha();
 		}
-		
+
+	}
+
+	private void criarNovosClientes() {
+		boolean deveCriarNovoCliente = novoClienteDecider.deveGerarNovoCliente(tempo);
+		if (deveCriarNovoCliente) {
+			Cliente novoCliente = clienteFactory.novoCliente();
+			pizzaria.novoClienteChegou(novoCliente);
+		}
 	}
 
 	private void pausinha() {
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			throw new IllegalStateException("Sleep não funcionou, nunca deveria acontecer! ", e);
-		}
-	}
 
+		System.out.println("Prosseguir? 'y' para 'Yes': ");
+		Scanner scanner = new Scanner(System.in);
+		scanner.next();
+	}
 }
