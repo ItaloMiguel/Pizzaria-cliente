@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class SimuladorPizzariaTest {
 	
-	private static List<Integer> TEMPOS_PRA_CRIAR_CLIENTES = Arrays.asList(2, 3, 5, 7, 8);
+	private static List<Integer> TEMPOS_PRA_CRIAR_CLIENTES = Arrays.asList(2, 3, 5, 7, 8, 10);
 
 	private PizzariaListenerProTeste listener = new PizzariaListenerProTeste();
 	private SimuladorPizzaria simulador;
@@ -40,47 +40,47 @@ public class SimuladorPizzariaTest {
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 2
 		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
-		assertEstadoPizzaria(1, 0, 2, 1);
+		assertEstadoPizzaria(1, 0, 3, 0);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 3
 		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
-		assertEstadoPizzaria(2, 0, 1, 2);
+		assertEstadoPizzaria(2, 0, 2, 1);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 4
 		assertEventos(eventos, new TipoEvento[] {});
-		assertEstadoPizzaria(2, 0, 1, 2);
+		assertEstadoPizzaria(2, 0, 3, 0);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 5
 		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
-		assertEstadoPizzaria(3, 0, 0, 3);
+		assertEstadoPizzaria(3, 0, 2, 1);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 6
 		assertEventos(eventos, new TipoEvento[] {});
-		assertEstadoPizzaria(3, 0, 0, 3);
+		assertEstadoPizzaria(3, 0, 3, 0);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 7
-		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU});
-		assertEstadoPizzaria(3, 1, 0, 3);
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(4, 0, 2, 1);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 8
-		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU});
-		assertEstadoPizzaria(3, 2, 0, 3);
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(5, 0, 2, 1);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 9
 		assertEventos(eventos, new TipoEvento[] {});
-		assertEstadoPizzaria(3, 2, 0, 3);
+		assertEstadoPizzaria(5, 0, 2, 1);
 
 		listener.limparEventosGuardados();
 		simulador.avancarSimulacao(); // tempo 10
-		assertEventos(eventos, new TipoEvento[] {});
-		assertEstadoPizzaria(3, 2, 0, 3);
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(6, 0, 2, 1);
 	}
 
 	private void assertEstadoPizzaria(int qtdClientesAtendidos, int QtdClientesNaoAtendidos, int garconsDisponiveis, int garconsOcupados) {

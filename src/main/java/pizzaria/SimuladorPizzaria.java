@@ -37,6 +37,8 @@ public class SimuladorPizzaria {
 		criarNovosClientes();
 
 		pizzaria.clientesFazemPedidos();
+		
+		pizzaria.deixarGarcomDisponivel(tempo);
 
 		render.render(pizzaria);
 

@@ -21,7 +21,7 @@ public class Pizzaria {
 
 	public void novoClienteChegou(Cliente novoCliente) {
 		this.clientesNaoAtendidos.add(novoCliente);
-		
+
 		EventoChegouCliente evento = new EventoChegouCliente(novoCliente);
 		listener.ocorreuEvento(evento);
 	}
@@ -61,18 +61,18 @@ public class Pizzaria {
 		for (Cliente cliente : this.clientesNaoAtendidos) {
 			if (temGarconDisponivel()) {
 				clienteFazPedido(cliente);
-			} 
+			}
 		}
 	}
 
 	private void clienteFazPedido(Cliente cliente) {
-		
+
 		Garcom garcom = pegarGarconDisponivel();
 		Pedido novoPedido = cliente.novoPedido();
 		garcom.setPedido(novoPedido);
 		clientesNaoAtendidos.remove(cliente);
 		clientesAtendidos.add(cliente);
-		
+
 		EventoGarconPegouPedido evento = new EventoGarconPegouPedido(garcom, novoPedido, cliente);
 		this.listener.ocorreuEvento(evento);
 	}
@@ -89,6 +89,20 @@ public class Pizzaria {
 
 	private boolean temGarconDisponivel() {
 		return !garconsDisponiveis.isEmpty();
+	}
+
+	public void deixarGarcomDisponivel(int tempo) {
+		if (verificaTempo(tempo)) {
+			Garcom garcomOcupado = garconsOcupados.poll();
+			garconsDisponiveis.add(garcomOcupado);
+		}
+	}
+
+	private boolean verificaTempo(int tempo) {
+		if(tempo % 2 == 0) {
+			return true;
+		}
+		return false;
 	}
 
 }

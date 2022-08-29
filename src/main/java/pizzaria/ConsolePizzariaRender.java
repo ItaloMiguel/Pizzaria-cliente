@@ -19,8 +19,8 @@ public class ConsolePizzariaRender implements PizzariaRender {
 		System.out.println("## Clientes dentro da pizzaria ainda não atendidos: " + nomesDosClientesNaoAtendidos);
 
 		List<String> nomesDosGarconsDisponiveis = pizzaria.getGarconsDisponiveis().stream().map(g -> g.getNome())
-				.collect(Collectors.toList());
-		System.out.println("## Garçons disponíveis: " + nomesDosGarconsDisponiveis);
+				.collect((Collectors.toList())); // -> adicionei mais alguns parentesese volto a funcionar. Pq? Não faço ideia
+		System.out.println(("## Garçons disponíveis: " + nomesDosGarconsDisponiveis)); // -> aqui tbm.
 
 		List<String> nomesDosGarconsOcupados = pizzaria.getGarconsOcupados().stream().map(g -> g.getNome())
 				.collect(Collectors.toList());
