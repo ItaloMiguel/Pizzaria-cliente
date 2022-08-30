@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class SimuladorPizzariaTest {
 	
-	private static List<Integer> TEMPOS_PRA_CRIAR_CLIENTES = Arrays.asList(2, 3, 5, 7, 8, 10);
+	private static List<Integer> TEMPOS_PRA_CRIAR_CLIENTES = Arrays.asList(2, 3, 5, 7, 8, 10, 11, 12, 13, 14, 17);
 
 	private PizzariaListenerProTeste listener = new PizzariaListenerProTeste();
 	private SimuladorPizzaria simulador;
@@ -81,6 +81,68 @@ public class SimuladorPizzariaTest {
 		simulador.avancarSimulacao(); // tempo 10
 		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
 		assertEstadoPizzaria(6, 0, 2, 1);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 11
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(7, 0, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 12
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(8, 0, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 13
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(9, 0, 0, 3);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 14
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU});
+		assertEstadoPizzaria(9, 1, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 15
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(10, 0, 0, 3);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 16
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(10, 0, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 17
+		assertEventos(eventos, new TipoEvento[] {TipoEvento.CLIENTE_CHEGOU, TipoEvento.GARCON_PEGOU_PEDIDO});
+		assertEstadoPizzaria(11, 0, 0, 3);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 18
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(11, 0, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 19
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(11, 0, 1, 2);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 20
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(11, 0, 2, 1);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 21
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(11, 0, 2, 1);
+		
+		listener.limparEventosGuardados();
+		simulador.avancarSimulacao(); // tempo 22
+		assertEventos(eventos, new TipoEvento[] {});
+		assertEstadoPizzaria(11, 0, 3, 0);
+		
+		
 	}
 
 	private void assertEstadoPizzaria(int qtdClientesAtendidos, int QtdClientesNaoAtendidos, int garconsDisponiveis, int garconsOcupados) {
