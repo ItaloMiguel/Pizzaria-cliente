@@ -2,16 +2,19 @@ package pizzaria;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Pizzaria {
 
 	private PizzariaListener listener;
 	private Queue<Cliente> clientesNaoAtendidos = new LinkedList<>();
 	private Queue<Cliente> clientesAtendidos = new LinkedList<>();
-	private Queue<Garcom> garconsDisponiveis;
+	private Queue<Garcom> garconsDisponiveis = new LinkedList<>();
 	private Queue<Garcom> garconsOcupados = new LinkedList<>();
 	private Queue<Pizzaiolo> pizzaioloDisponivel;
 	private Queue<Pizzaiolo> pizzaioloOcupado = new LinkedList<>();
@@ -68,7 +71,6 @@ public class Pizzaria {
 	}
 
 	public void clientesFazemPedidos() {
-
 		for (Cliente cliente : this.clientesNaoAtendidos) {
 			if (temGarconDisponivel()) {
 				clienteFazPedido(cliente);
@@ -77,7 +79,6 @@ public class Pizzaria {
 	}
 
 	private void clienteFazPedido(Cliente cliente) {
-
 		Garcom garcom = pegarGarconDisponivel();
 		Pedido novoPedido = cliente.novoPedido();
 		garcom.setPedido(novoPedido);

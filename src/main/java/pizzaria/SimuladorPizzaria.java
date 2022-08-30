@@ -10,16 +10,18 @@ public class SimuladorPizzaria {
 	private Pizzaria pizzaria;
 	
 	private int tempo = 0;
+	private boolean pizzariaAberta;
 	
 	public SimuladorPizzaria(Pausinha pausinha, NovoClienteDecider novoClienteDecider, PizzariaListener listener) {
 		this.pausinha = pausinha;
 		this.novoClienteDecider = novoClienteDecider;
 		this.pizzaria = pizzariaFactory.criarPizzaria(listener);
+		this.pizzariaAberta = true;
 	}
 	
 	public void iniciarSimulacao() {
 
-		while (true) {
+		while (this.pizzariaAberta == true) {
 			avancarSimulacao();
 		}
 
@@ -42,7 +44,15 @@ public class SimuladorPizzaria {
 
 		render.render(pizzaria);
 
-		pausinha.pausar();
+		fecharPizzaria();
+	}
+
+	private void fecharPizzaria() {
+		boolean pausar = pausinha.pausar();
+		if(pausar == false) {
+			System.out.println("\nFINALIZANDO O SIMULADOR DE PIZZARIA =(");
+			this.pizzariaAberta = false;
+		}
 	}
 
 	private void criarNovosClientes() {
@@ -55,6 +65,10 @@ public class SimuladorPizzaria {
 
 	public Pizzaria getPizzaria() {
 		return this.pizzaria;
+	}
+	
+	public boolean pizzariaAberta() {
+		return this.pizzariaAberta;
 	}
 
 }
