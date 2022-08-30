@@ -6,7 +6,6 @@ public class NovoClienteDeciderAleatorio implements NovoClienteDecider {
 	
 	@Override
 	public boolean deveGerarNovoCliente(int tempoSimulacao) {
-
 		double randomAte1 = Math.random();
 		return randomAte1 < PROBABILIDADE_DE_GERAR_NOVO_CLIENTE;
 	}

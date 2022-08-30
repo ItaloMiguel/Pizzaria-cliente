@@ -26,6 +26,10 @@ public class ConsolePizzariaRender implements PizzariaRender {
 				.collect(Collectors.toList());
 		System.out.println("## Garçons ocupados: " + nomesDosGarconsOcupados);
 
+		List<String> nomesDosPizzaioloDisponiveis = pizzaria.getPizzaioloDisponivel().stream().map(p -> p.getNome()).collect(Collectors.toList());
+		System.out.println("## Pizzaiolos disponiveis: " + nomesDosPizzaioloDisponiveis);
+		
+	
 	}
 
 }

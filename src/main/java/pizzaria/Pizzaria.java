@@ -13,10 +13,21 @@ public class Pizzaria {
 	private Queue<Cliente> clientesAtendidos = new LinkedList<>();
 	private Queue<Garcom> garconsDisponiveis;
 	private Queue<Garcom> garconsOcupados = new LinkedList<>();
+	private Queue<Pizzaiolo> pizzaioloDisponivel;
+	private Queue<Pizzaiolo> pizzaioloOcupado = new LinkedList<>();
 
-	public Pizzaria(Queue<Garcom> garcons, PizzariaListener listener) {
+	public Pizzaria(Queue<Garcom> garcons, Queue<Pizzaiolo> pizzaiolo,PizzariaListener listener) {
 		this.garconsDisponiveis = garcons;
 		this.listener = listener;
+		this.pizzaioloDisponivel = pizzaiolo;
+	}
+
+	public Queue<Pizzaiolo> getPizzaioloDisponivel() {
+		return pizzaioloDisponivel;
+	}
+
+	public Queue<Pizzaiolo> getPizzaioloOcupado() {
+		return pizzaioloOcupado;
 	}
 
 	public void novoClienteChegou(Cliente novoCliente) {
