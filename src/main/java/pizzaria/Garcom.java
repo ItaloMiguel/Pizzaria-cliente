@@ -41,4 +41,12 @@ public class Garcom {
 		return "Garcom [nome=" + nome + ", pedido=" + pedido + "]";
 	}
 
+	public void pegaPedidoEntregaAoPizzaiolo(Pedido novoPedido) {
+		
+	}
+
+	public Pedido getPedido() {
+		return this.pedido;
+	}
+
 }

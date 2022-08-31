@@ -20,7 +20,6 @@ public class SimuladorPizzaria {
 	}
 	
 	public void iniciarSimulacao() {
-
 		while (this.pizzariaAberta == true) {
 			avancarSimulacao();
 		}
@@ -41,6 +40,7 @@ public class SimuladorPizzaria {
 		pizzaria.clientesFazemPedidos();
 		
 		pizzaria.deixarGarcomDisponivel(tempo);
+		pizzaria.deixarPizzaioloDIsponivel(tempo);
 
 		render.render(pizzaria);
 

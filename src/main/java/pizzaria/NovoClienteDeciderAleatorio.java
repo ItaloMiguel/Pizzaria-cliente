@@ -2,7 +2,7 @@ package pizzaria;
 
 public class NovoClienteDeciderAleatorio implements NovoClienteDecider {
 
-	private static final double PROBABILIDADE_DE_GERAR_NOVO_CLIENTE = 0.4; 
+	private static final double PROBABILIDADE_DE_GERAR_NOVO_CLIENTE = 1; 
 	
 	@Override
 	public boolean deveGerarNovoCliente(int tempoSimulacao) {

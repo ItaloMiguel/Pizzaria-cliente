@@ -18,6 +18,11 @@ public class PizzariaListenerConsolePrinter implements PizzariaListener {
 					+ " do cliente " + ev.getCliente().getNome() + ".");
 			break;
 			
+		case PIZZAIOLO_PEGO_PEDIDO:
+			EventoPizzaioloPegouPedido ep = (EventoPizzaioloPegouPedido) evento;
+			System.out.println("Pizzaiolo " + ep.getPizzaiolo().getNome() + " pegou o pedido " + ep.getPedido().getSabores() +
+					" do garcom " + ep.getGarcom().getNome() + " .");
+			break;
 		default:
 			throw new IllegalStateException(
 					"Não conheço o tipo evento " + evento.getTipoEvento() + ". Favor atualizar a classe "
