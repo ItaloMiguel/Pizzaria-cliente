@@ -1,7 +1,7 @@
 # Simulador-Pizzaria
 Esse projeto é um simulador de pizzaria automática. Quando iniciada você deve apenas dizer se deseja continuar clicando 'y', caso ao contrario clique 'n' para finalizar o aplicativo.
 Existe um tempo dentro da pizzaria que vou chamar de "rodada", a cada rodada executada vai mostrar quem chego, qual garcom foi pegar o pedido e qual pizzariolo pego o pedido para fazer, logo a pos a execução de todos comandos mostra como ficou o estado da pizzaria depois dessa rodada, mostra quais são os clientes que chegaram e estão dentro da pizzaria, os que foram atendidos e os que não foram atendidos ainda. Agora para garçons, pizzaiolo e fornos de pizza todos funciona iguais, mostra a quantidade de objetos que estão disponiveis e quantidades que estão ocupados. Caso não tenha garçons disponivel o cliente fica na fila de espera até surgir um novo garçom disponível.
-Projeto não é OpenSouce, mas caso queira da susjestões de coisas nova para acrecentar e bugs que talvez tenham acontecido com você é so entrar em contato comigo, de qual quer forma que conseguir. Obrigado =)
+Projeto não é OpenSouce, mas caso queira da susjestões de coisas nova para acrecentar e bugs que talvez tenham acontecido com você é só mandar uma mensagem, vai ajduda muito o fedback. Obrigado =)
 
 # Apenas uma pequena observação sobre o código
  - Lembre-se. Isso é um projeto simples, apenas para minha diversão, por isso não liberei para fazerem commit em uma brach, mas caso queira pegar o código e ir melhorando vocẽ mesmo, estão liberados.
