@@ -42,7 +42,6 @@ public class SimuladorPizzaria {
 		pizzaria.deixarPizzaioloDIsponivel(tempo);
 
 		render.render(pizzaria);
-
 		fecharPizzaria();
 	}
 
