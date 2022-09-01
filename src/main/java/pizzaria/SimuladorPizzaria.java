@@ -23,7 +23,6 @@ public class SimuladorPizzaria {
 		while (this.pizzariaAberta == true) {
 			avancarSimulacao();
 		}
-
 	}
 	
 	public void avancarSimulacao() {

@@ -1,11 +1,13 @@
 package pizzaria;
 
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 public class Garcom {
 
 	private String nome;
-	private Pedido pedido;
+	private Queue<Pedido> pedido = new LinkedList<>();
 
 	public Garcom(String nome) {
 		this.nome = nome;
@@ -16,7 +18,7 @@ public class Garcom {
 	}
 
 	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+		this.pedido.add(pedido);
 	}
 
 	@Override
@@ -46,7 +48,7 @@ public class Garcom {
 	}
 
 	public Pedido getPedido() {
-		return this.pedido;
+		return pedido.poll();
 	}
 
 }

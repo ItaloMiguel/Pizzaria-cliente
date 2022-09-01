@@ -9,15 +9,17 @@ import java.util.Queue;
 public class Pizzaria {
 
 	private PizzariaListener listener;
+	private Queue<Fogao> fogoesDisponiveis;
+	private Queue<Pizzaiolo> pizzaioloDisponiveis;
+	private Queue<Garcom> garconsDisponiveis;
+	
 	private Queue<Cliente> clientesNaoAtendidos = new LinkedList<>();
 	private Queue<Cliente> clientesAtendidos = new LinkedList<>();
-	private Queue<Garcom> garconsDisponiveis;
 	private Queue<Garcom> garconsOcupados = new LinkedList<>();
-	private Queue<Pizzaiolo> pizzaioloDisponiveis;
 	private Queue<Pizzaiolo> pizzaioloOcupados = new LinkedList<>();
-	private Queue<Fogao> fogoesDisponiveis;
 	private Queue<Fogao> fogoesOcupados = new LinkedList<>();
-	private Queue<Fogao> pedidosNaoFeitos = new LinkedList<>();
+	private Queue<Pedido> pedidosNaoFeitos = new LinkedList<>();
+	private Queue<Pedido> pedidoPronto = new LinkedList<>();
 
 	public int getFogoesDisponiveis() {
 		return fogoesDisponiveis.size();
@@ -26,8 +28,8 @@ public class Pizzaria {
 	public int getFogoesOcupados() {
 		return fogoesOcupados.size();
 	}
-	
-	public Queue<Fogao> getFilaDePedido() {
+
+	public Queue<Pedido> getFilaDePedido() {
 		return pedidosNaoFeitos;
 	}
 
@@ -100,7 +102,7 @@ public class Pizzaria {
 		Garcom garcom = pegarGarconDisponivel();
 		Pedido novoPedido = cliente.novoPedido();
 		garcom.setPedido(novoPedido);
-		
+
 		EventoGarconPegouPedido evento = new EventoGarconPegouPedido(garcom, novoPedido, cliente);
 		this.listener.ocorreuEvento(evento);
 		
@@ -109,30 +111,42 @@ public class Pizzaria {
 		clientesAtendidos.add(cliente);
 
 	}
-	
+
 	private void garcomLevaPedido(Garcom garcom) {
 		Pedido pedido = garcom.getPedido();
-		Pizzaiolo pizzaiolo = pegarPizzaioloDisponivel();
-		pizzaiolo.setPedido(pedido);
-		if(fogaroEstacheio()) {
-			if(temPedidoNaFrente()) {
-//				fogoesDisponiveis.add(pedido);
-			} else {
-//				pedidosNaoFeitos.add(pedido);
-			}
-		} else {
-			
+		pedidosNaoFeitos.add(pedido);
+		cozinhando();
+	}
+
+	private void cozinhando() {
+		if(temFogaoDisponivel() && temPizzaioloDisponivel()) {
+			Pedido pedidoNaoFeito = pegarPedidoDaLista();
+			pegarPizzaioloDisponivel();
+			Fogao fogaoDisponivel = pegarFogaoDisponivel();
+			colocaPedidoNoForno(pedidoNaoFeito, fogaoDisponivel);
 		}
-		
-		EventoPizzaioloPegouPedido evento = new EventoPizzaioloPegouPedido(garcom, pedido, pizzaiolo);
-		this.listener.ocorreuEvento(evento);
 	}
 
-	private boolean temPedidoNaFrente() {
-		return !pedidosNaoFeitos.isEmpty();
+	private void colocaPedidoNoForno(Pedido pedidoNaoFeito, Fogao fogaoDisponivel) {
+		fogaoDisponivel.setPedido(pedidoNaoFeito);
+	}
+	
+	private Fogao pegarFogaoDisponivel() {
+		Fogao fogaoDisponivel = fogoesDisponiveis.poll();
+		fogoesOcupados.add(fogaoDisponivel);
+		return fogaoDisponivel;
 	}
 
-	private boolean fogaroEstacheio() {
+	private Pedido pegarPedidoDaLista() {
+		return pedidosNaoFeitos.poll();
+	}
+
+
+	private boolean temPizzaioloDisponivel() {
+		return !pizzaioloDisponiveis.isEmpty();
+	}
+
+	private boolean temFogaoDisponivel() {
 		return !fogoesDisponiveis.isEmpty();
 	}
 
@@ -160,7 +174,6 @@ public class Pizzaria {
 		return !garconsDisponiveis.isEmpty();
 	}
 
-	
 	public void deixarGarcomDisponivel(int tempo) {
 		if (verificaTempo(tempo)) {
 			Garcom garcomOcupado = garconsOcupados.poll();
@@ -176,11 +189,18 @@ public class Pizzaria {
 	}
 
 	public void deixarPizzaioloDIsponivel(int tempo) {
-		if(verificaTempo(tempo)) {
+		if (tempo % 5 == 0) {
 			Pizzaiolo pizzaioloOcupado = pizzaioloOcupados.poll();
+			Fogao fogaoOcupado = fogoesOcupados.poll();
+			Pedido sabores = fogaoOcupado.getPedido();
+			pedidoPronto.add(sabores);
+			
+			fogoesDisponiveis.add(fogaoOcupado);
 			pizzaioloDisponiveis.add(pizzaioloOcupado);
 		}
-		
 	}
 
+	public Queue<Pedido> getPedidoPronto() {
+		return pedidoPronto;
+	}
 }

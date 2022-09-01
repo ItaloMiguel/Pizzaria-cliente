@@ -1,18 +1,22 @@
 package pizzaria;
 
+import java.util.LinkedList;
 import java.util.Objects;
+import java.util.Queue;
 
 public class Pizzaiolo {
 
 	private String nome;
 	private Pedido pedido;
-
+	private Queue<Pedido> pedidosFeito = new LinkedList<>();
+	
+	
 	public Pizzaiolo(String nome) {
 		this.nome = nome;
 	}
 
 	public Pedido getPedido() {
-		return pedido;
+		return pedidosFeito.poll();
 	}
 
 	public String getNome() {
@@ -20,7 +24,7 @@ public class Pizzaiolo {
 	}
 
 	public void setPedido(Pedido pedido) {
-		this.pedido = pedido;
+		this.pedidosFeito.add(pedido);
 	}
 
 	@Override

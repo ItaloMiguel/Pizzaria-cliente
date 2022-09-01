@@ -12,10 +12,10 @@ public class PizzariaFactory {
 	Queue<Pizzaiolo> pizzaiolos = new LinkedList<>();
 	Queue<Garcom> garcons = new LinkedList<>();
 	Queue<Fogao> fogoes = new LinkedList<>();
-	
+
 	private GarcomFactory garcomFactory = new GarcomFactory();
 	private PizzaioloFactory pizzaioloFactory = new PizzaioloFactory();
- 
+
 	public Pizzaria criarPizzaria(PizzariaListener listener) {
 
 		for (int i = 0; i < QUANTIDADE_GARCONS; i++) {
@@ -23,17 +23,17 @@ public class PizzariaFactory {
 			garcons.add(novoGarcon);
 		}
 
-		for(int i = 0; i< QUANTIDADE_PIZZAIOLOS; i++) {
+		for (int i = 0; i < QUANTIDADE_PIZZAIOLOS; i++) {
 			Pizzaiolo novoPizzaiolo = pizzaioloFactory.novoPizzaiolo();
 			pizzaiolos.add(novoPizzaiolo);
 		}
-		
-		for(int i = 0; i< QUANTIDADE_FOGOES; i++) {
+
+		for (int i = 0; i < QUANTIDADE_FOGOES; i++) {
 			Fogao novoFogao = new Fogao();
 			fogoes.add(novoFogao);
 		}
-		
-		return new Pizzaria(garcons, pizzaiolos,fogoes ,listener);
+
+		return new Pizzaria(garcons, pizzaiolos, fogoes, listener);
 	}
 
 }
