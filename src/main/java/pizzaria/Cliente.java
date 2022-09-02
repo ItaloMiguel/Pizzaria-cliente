@@ -1,10 +1,12 @@
 package pizzaria;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class Cliente {
 
 	private PedidoFactory pedidoFactory = new PedidoFactory();
+	private ArrayList<Pedido> recebePedido = new ArrayList<>();
 	
 	private String nome;
 	private Pedido pedido;
@@ -32,6 +34,9 @@ public class Cliente {
 		return this.pedido;
 	}
 
+	public void setPedido(Pedido recebePedido) {
+		this.recebePedido.add(recebePedido);
+	}
 	
 	@Override
 	public int hashCode() {
@@ -55,5 +60,4 @@ public class Cliente {
 		return "Cliente [nome=" + nome + "]";
 	}
 
-	
 }

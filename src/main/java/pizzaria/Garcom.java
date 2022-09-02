@@ -8,6 +8,7 @@ public class Garcom {
 
 	private String nome;
 	private Queue<Pedido> pedido = new LinkedList<>();
+	private Queue<Pedido> pedidoPronto = new LinkedList<>();
 
 	public Garcom(String nome) {
 		this.nome = nome;
@@ -49,6 +50,14 @@ public class Garcom {
 
 	public Pedido getPedido() {
 		return pedido.poll();
+	}
+
+	public void pegaPedidoPronto(Pedido pedidoPronto) {
+		this.pedidoPronto.add(pedidoPronto);
+	}
+
+	public Pedido getPedidoPronto() {
+		return this.pedidoPronto.poll();
 	}
 
 }

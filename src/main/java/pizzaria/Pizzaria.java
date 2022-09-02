@@ -12,17 +12,22 @@ public class Pizzaria {
 	private Queue<Fogao> fogoesDisponiveis;
 	private Queue<Pizzaiolo> pizzaioloDisponiveis;
 	private Queue<Garcom> garconsDisponiveis;
-	
+
 	private Queue<Cliente> clientesNaoAtendidos = new LinkedList<>();
 	private Queue<Cliente> clientesAtendidos = new LinkedList<>();
+	private Queue<Cliente> clienteRecebeuComida = new LinkedList<>();
 	private Queue<Garcom> garconsOcupados = new LinkedList<>();
 	private Queue<Pizzaiolo> pizzaioloOcupados = new LinkedList<>();
 	private Queue<Fogao> fogoesOcupados = new LinkedList<>();
 	private Queue<Pedido> pedidosNaoFeitos = new LinkedList<>();
-	private Queue<Pedido> pedidoPronto = new LinkedList<>();
+	private Queue<Pedido> pedidosPronto = new LinkedList<>();
 
 	public int getFogoesDisponiveis() {
 		return fogoesDisponiveis.size();
+	}
+
+	public Queue<Cliente> getClienteRecebeuComida() {
+		return clienteRecebeuComida;
 	}
 
 	public int getFogoesOcupados() {
@@ -77,7 +82,7 @@ public class Pizzaria {
 		return todos;
 	}
 
-	public Collection<Garcom> getGarconsDisponiveis() {
+	public Queue<Garcom> getGarconsDisponiveis() {
 		return garconsDisponiveis;
 	}
 
@@ -87,7 +92,7 @@ public class Pizzaria {
 
 	public void clientesFazemPedidos() {
 		if (temGarconDisponivel()) {
-			if(temClienteNaoFoiAtendido()) {
+			if (temClienteNaoFoiAtendido()) {
 				Cliente cliente = clientesNaoAtendidos.poll();
 				clienteFazPedido(cliente);
 			}
@@ -105,7 +110,7 @@ public class Pizzaria {
 
 		EventoGarconPegouPedido evento = new EventoGarconPegouPedido(garcom, novoPedido, cliente);
 		this.listener.ocorreuEvento(evento);
-		
+
 		garcomLevaPedido(garcom);
 		clientesNaoAtendidos.remove(cliente);
 		clientesAtendidos.add(cliente);
@@ -119,7 +124,7 @@ public class Pizzaria {
 	}
 
 	private void cozinhando() {
-		if(temFogaoDisponivel() && temPizzaioloDisponivel()) {
+		if (temFogaoDisponivel() && temPizzaioloDisponivel()) {
 			Pedido pedidoNaoFeito = pegarPedidoDaLista();
 			pegarPizzaioloDisponivel();
 			Fogao fogaoDisponivel = pegarFogaoDisponivel();
@@ -130,7 +135,7 @@ public class Pizzaria {
 	private void colocaPedidoNoForno(Pedido pedidoNaoFeito, Fogao fogaoDisponivel) {
 		fogaoDisponivel.setPedido(pedidoNaoFeito);
 	}
-	
+
 	private Fogao pegarFogaoDisponivel() {
 		Fogao fogaoDisponivel = fogoesDisponiveis.poll();
 		fogoesOcupados.add(fogaoDisponivel);
@@ -140,7 +145,6 @@ public class Pizzaria {
 	private Pedido pegarPedidoDaLista() {
 		return pedidosNaoFeitos.poll();
 	}
-
 
 	private boolean temPizzaioloDisponivel() {
 		return !pizzaioloDisponiveis.isEmpty();
@@ -189,18 +193,80 @@ public class Pizzaria {
 	}
 
 	public void deixarPizzaioloDIsponivel(int tempo) {
-		if (tempo % 5 == 0) {
+		if (tempoMultiploDeCinco(tempo)) {
 			Pizzaiolo pizzaioloOcupado = pizzaioloOcupados.poll();
 			Fogao fogaoOcupado = fogoesOcupados.poll();
 			Pedido sabores = fogaoOcupado.getPedido();
-			pedidoPronto.add(sabores);
-			
+			pedidosPronto.add(sabores);
+
+			EventoPizzaioloTerminoPizza evento = new EventoPizzaioloTerminoPizza(pizzaioloOcupado, sabores);
+			this.listener.ocorreuEvento(evento);
+
 			fogoesDisponiveis.add(fogaoOcupado);
 			pizzaioloDisponiveis.add(pizzaioloOcupado);
 		}
 	}
 
 	public Queue<Pedido> getPedidoPronto() {
-		return pedidoPronto;
+		return pedidosPronto;
+	}
+
+	public void garcomLevarPedidoParaCliente() {
+		if (temClienteQueJaPediu() && temGarconDisponivel() && temPedidoPronto()) {
+			Garcom garcomDisponivel = pegarGarconDisponivel();
+			Cliente clienteAtendido = pegarClienteAtendido();
+			Pedido pedidoPronto = pedidosPronto.poll();
+			garcomDisponivel.pegaPedidoPronto(pedidoPronto);
+			garcomLevaPedidoParaCliente(garcomDisponivel, clienteAtendido);
+		}
+	}
+
+	private void garcomLevaPedidoParaCliente(Garcom garcomDisponivel, Cliente clienteAtendido) {
+		Pedido pedido = garcomDisponivel.getPedidoPronto();
+		clienteAtendido.setPedido(pedido);
+		clienteRecebeuComida.add(clienteAtendido);
+
+		EventoClienteRecebeuPedido evento = new EventoClienteRecebeuPedido(pedido, garcomDisponivel, clienteAtendido);
+		this.listener.ocorreuEvento(evento);
+	}
+
+	private boolean temClienteQueJaPediu() {
+		return !clientesAtendidos.isEmpty();
+	}
+
+	private Cliente pegarClienteAtendido() {
+		return clientesAtendidos.poll();
+	}
+
+	private boolean temPedidoPronto() {
+		return !pedidosPronto.isEmpty();
+	}
+
+	public void clienteVaiEmbora(int tempo) {
+		if (tempoMultiploDetre(tempo)) {
+			if (clienteJaRecebeuPedido()) {
+				Cliente clienteAtendido = clientesAtendidos.poll();
+				EventoClienteFoiEmbora vento = new EventoClienteFoiEmbora(clienteAtendido);
+			}
+		}
+
+	}
+
+	private boolean tempoMultiploDetre(int tempo) {
+		if (tempo % 3 == 0) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean clienteJaRecebeuPedido() {
+		return !clientesAtendidos.isEmpty();
+	}
+
+	private boolean tempoMultiploDeCinco(int tempo) {
+		if (tempo % 5 == 0) {
+			return true;
+		}
+		return false;
 	}
 }

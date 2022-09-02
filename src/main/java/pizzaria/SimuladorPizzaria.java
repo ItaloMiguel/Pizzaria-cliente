@@ -36,10 +36,13 @@ public class SimuladorPizzaria {
 
 		criarNovosClientes();
 
+		pizzaria.garcomLevarPedidoParaCliente();
 		pizzaria.clientesFazemPedidos();
 		
 		pizzaria.deixarGarcomDisponivel(tempo);
 		pizzaria.deixarPizzaioloDIsponivel(tempo);
+		pizzaria.clienteVaiEmbora(tempo);
+		
 
 		render.render(pizzaria);
 		fecharPizzaria();

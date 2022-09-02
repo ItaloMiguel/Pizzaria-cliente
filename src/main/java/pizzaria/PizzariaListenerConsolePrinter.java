@@ -21,12 +21,27 @@ public class PizzariaListenerConsolePrinter implements PizzariaListener {
 		case PIZZAIOLO_PEGO_PEDIDO:
 			EventoPizzaioloPegouPedido ep = (EventoPizzaioloPegouPedido) evento;
 			System.out.println("Pizzaiolo " + ep.getPizzaiolo().getNome() + " pegou o pedido " + ep.getPedido().getSabores() +
-					" do garcom " + ep.getGarcom().getNome() + " .");
+					" do garcom " + ep.getGarcom().getNome() + ".");
 			break;
 			
 		case PIZZA_ESTA_PRONTA:
 			EventoPizzaPronta pp = (EventoPizzaPronta) evento;
-			System.out.println("Pizzaiolo " + pp.getPizzaiolo().getNome() + " fez  o pedido " + pp.getPedido());
+			System.out.println("Pizzaiolo " + pp.getPizzaiolo().getNome() + " fez  o pedido " + pp.getPedido() + ".");
+			break;
+			
+		case CLIENTE_RECEBE_PIZZA:
+			EventoClienteRecebeuPedido crp = (EventoClienteRecebeuPedido) evento;
+			System.out.println("Garcom " + crp.getGarcom().getNome() + " levou o pedido "+ crp.getPedido().getSabores()+ " para " + crp.getCliente().getNome() + ".");
+			break;
+			
+		case PIZZAIOLO_TERMINO_PEDIDO:
+			EventoPizzaioloTerminoPizza ptp = (EventoPizzaioloTerminoPizza) evento;
+			System.out.println("Pizzaiolo " + ptp.getPizzaiolo().getNome() + " termino o pedido " + ptp.getPedido().getSabores() + ".");
+			break;
+		
+		case CLIENTE_FOI_EMBORA:
+			EventoClienteFoiEmbora cfe = (EventoClienteFoiEmbora) evento;
+			System.out.println("Cliente" + cfe.getCliente().getNome() + " foi embora.");
 			break;
 			
 		default:

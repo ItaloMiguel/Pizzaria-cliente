@@ -18,10 +18,12 @@ public class ConsolePizzariaRender implements PizzariaRender {
 		List<String> nomesDosClientesNaoAtendidos = pizzaria.getClientesNaoAtendidos().stream().map(c -> c.getNome())
 				.collect(Collectors.toList());
 		System.out.println("## Clientes dentro da pizzaria ainda não atendidos: " + nomesDosClientesNaoAtendidos);
+		
+		List<String> clietenQueJaRecebeuPedido = pizzaria.getClienteRecebeuComida().stream().map(c -> c.getNome()).collect(Collectors.toList());
+		System.out.println("## Cliente que já recebeu pedido: " + clietenQueJaRecebeuPedido);
 
-		List<String> nomesDosGarconsDisponiveis = pizzaria.getGarconsDisponiveis().stream().map(g -> g.getNome())
-				.collect(Collectors.toList());
-		System.out.println(("## Garçons disponíveis: " + nomesDosGarconsDisponiveis));
+		List<String> nomesDosGarcomDisponivel = pizzaria.getGarconsDisponiveis().stream().map(g -> g.getNome()).collect(Collectors.toList());
+		System.out.println("## Garçons disponíveis: " + nomesDosGarcomDisponivel);
 
 		List<String> nomesDosGarconsOcupados = pizzaria.getGarconsOcupados().stream().map(g -> g.getNome())
 				.collect(Collectors.toList());
