@@ -43,7 +43,6 @@ public class Pizzaria {
 
 	public Pizzaria(Queue<Garcom> garcons, Queue<Pizzaiolo> pizzaiolo, Queue<Fogao> fogoes, PizzariaListener listener) {
 		this.garconsDisponiveis = garcons;
-		System.out.println("========= LIST DE GARCONS ==========\n" + garcons + "\n=========== FIM DA LISTA ============\n");
 		this.listener = listener;
 		this.pizzaioloDisponiveis = pizzaiolo;
 		this.fogoesDisponiveis = fogoes;
@@ -87,7 +86,6 @@ public class Pizzaria {
 	}
 
 	public Queue<Garcom> getGarconsDisponiveis() {
-		System.out.println("\n========= LIST DE GARCONS ==========\n" + this.garconsDisponiveis + "\n=========== FIM DA LISTA ============\n");
 		return this.garconsDisponiveis;
 	}
 
