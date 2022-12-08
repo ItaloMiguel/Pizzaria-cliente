@@ -1,5 +1,7 @@
 package pizzaria;
 
+import pizzaria.decider.NovoClienteDecider;
+
 import java.util.List;
 
 public class NovoClienteDeciderDeterministico implements NovoClienteDecider {

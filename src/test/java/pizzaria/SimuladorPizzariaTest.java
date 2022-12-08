@@ -8,6 +8,12 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
+import pizzaria.decider.NovoClienteDecider;
+import pizzaria.domain.Pizzaria;
+import pizzaria.eventos.EventoPizzaria;
+import pizzaria.eventos.TipoEvento;
+import pizzaria.pausas.Pausinha;
+import pizzaria.pausas.SemPausinha;
 
 public class SimuladorPizzariaTest {
 	

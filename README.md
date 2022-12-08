@@ -9,7 +9,7 @@ Projeto não é OpenSouce, mas caso queira da susjestões de coisas nova para ac
  - Quando fazer o git clone pode executar ele por terminal ou uma IDE, quando essa areá já estiver organizada tente achar a class 'Main.java' para executá-la. O aplicativo roda em terminal, não tem uma interface gráfica ainda...
 
 #Objetivo em fazer esse projeto
-  - Trabalhar com varios tipos de array.
+  - Trabalhar com vários tipos de array.
   - Utilizar Array Queue para simular as filas na pizzaria.
   - Tentar utilizar o maximo de Orientção a Objeto.
   - Tentar fazer Teste Automatizado com Junit.
